@@ -5,9 +5,21 @@ Created on 04/10/2016
 '''
 from selenium import webdriver
 import requests
+from selenium.webdriver.firefox.firefox_profile import FirefoxProfile
+from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
+import os
 
 if __name__ == '__main__':
-    driver = webdriver.Firefox()
+    #  XXX: https://stackoverflow.com/questions/40186299/selenium-opens-browser-but-doesnt-load-page
+    #  XXX: https://stackoverflow.com/questions/6682009/selenium-firefoxprofile-exception-cant-load-the-profile
+    #  XXX: https://stackoverflow.com/questions/20289598/python-selenium-import-my-regular-firefox-profile-add-ons
+    # XXX: https://stackoverflow.com/questions/37247336/selenium-use-of-firefox-profile
+    binary = FirefoxBinary(r'/Applications/Firefox.app/Contents/MacOS/firefox-bin')
+#    gecko = os.path.normpath(os.path.join(os.path.dirname(__file__), 'geckodriver'))
+    gecko = "/Users/ernesto/workspace_weba/valida_kue/src/pruebas/geckodriver"
+    print("geco esta {}".format(gecko))
+    profile = FirefoxProfile("/Users/ernesto/Library/Application Support/Firefox/Profiles/mff1vbld.cagada")
+    driver = webdriver.Firefox(firefox_profile=profile, firefox_binary=binary, executable_path=gecko)
     driver.get("http://aptitude.kueski.com/")
     print("pagina abierta")
     # TODO: Validar que haya registros, y si no, dar al menos 1 de alta.
